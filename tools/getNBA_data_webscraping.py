@@ -33,7 +33,12 @@ def getData(year):
             row1 = lines[1].split() # data
             row1.insert(0,row0)        
             data.loc[len(data.index)] = row1
+
+        data.to_csv(f"data/nba_{year}.csv", index=False)
+        return data
+    except:
+        return None
     finally:
         driver.close()
-        return data
+      
    
