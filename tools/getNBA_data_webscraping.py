@@ -3,14 +3,23 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
+
 
 def getData(year):
     url = 'https://www.nba.com/stats/teams/traditional?dir=A&sort=TEAM_NAME&Season=' + year
    
     try:
-        driver = webdriver.Chrome()
+        options = Options()
+        options.add_argument("--headless=new")
+        options.add_argument("--window-size=1920,1080")
+        options.add_argument("--disable-gpu")
+        options.add_argument("--no-sandbox")
+        options.add_argument("--user-agent=Mozilla/5.0")
+
+        driver = webdriver.Chrome(options)
         driver.get(url)
-        
+
         wait = WebDriverWait(driver, 10)
 
         ok_button = wait.until(EC.element_to_be_clickable((By.ID, 'onetrust-accept-btn-handler')))
